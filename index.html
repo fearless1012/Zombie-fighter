@@ -1,26 +1,63 @@
-<!doctype html public="♥">
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title></title>
-    <meta name="author" content="jkneb">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+<!doctype html>
+<html>
+  <script type='text/javascript'>
+    var canvas = null;
+    var img = null;
+    var ctx = null;
+    var imageReady = false;
+    function onload() {
+      canvas = document.getElementById('gameCanvas');
+      ctx = canvas.getContext("2d");
+      img = new Image();
+      img.src = 'images/ken-shoryuken.png';
+      img.onload = loaded();
+      resize();
+    }
+    function loaded() {
+        imageReady = true;
+        setTimeout( update, 12500 / 60 );
+    }
+    function resize() {
+      canvas.width = canvas.parentNode.clientWidth;
+      canvas.height = canvas.parentNode.clientHeight;
+      redraw();
+    }
+    function redraw() {
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        if (imageReady) {
+            ctx.drawImage(img, frame*96, 0, 60 , 54*2,
+                          canvas.width/2 - 48, canvas.height/2 - 48, 60, 54*2);
+        }
+    }
     
-    <div class="stage">
+    var frame = 0;
+    
+    function update() {
+      
+        redraw();
+        frame++;
+        if (frame >= 6) frame = 0;
+        setTimeout( update, 12500 / 60 );
+    }
+
+  </script>
+  </head>
+
+  </script>
+<body onresize='onresize()' onload='onload()' style='position: absolute; padding:0; margin:0; height: 100%; width:100%'>
+
+<canvas id="gameCanvas"></canvas>
+
+    
+    <!--<div class="stage">
         <div class="ken stance"></div>
         <div class="guile stance2 flip"></div>
 
         <a class="pause"></a>
     </div>
     
-    
-    
-    
-    
-    
-    <table class="commands">
+        <table class="commands">
         <tr>
             <td>Punch <span class="key" id="a">a</span>
             <td>Kick <span class="key" id="z">z</span>
@@ -28,7 +65,7 @@
         <tr>
             <td>Shoryuken <span class="key" id="d">d</span>
             <td>Reverse kick <span class="key" id="e">e</span>
-            <td>Walk <span class="key" id="left">◀</span> <span class="key" id="right">►</span> <!--▲▼◀►-->
+            <td>Walk <span class="key" id="left">◀</span> <span class="key" id="right">►</span> <!--▲▼◀►
         <tr>
             <td>Hadoken <span class="key" id="s">s</span>
             <td>Tatsumaki Senpuu Kyaku <span class="key" id="q">q</span>
@@ -38,7 +75,7 @@
             <td>
             <td>
     </table>
-    
+    -->
 <script src="js/jquery.min.js"></script>
 <script src="js/soundmanager2-jsmin.js"></script>
 <script src="js/audio.js"></script>
