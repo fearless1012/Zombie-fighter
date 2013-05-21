@@ -1,9 +1,12 @@
 <!doctype html>
 <html>
-  
+<head>
+
   <script type='text/javascript'>
+   
     var canvas = null;
     var img = null;
+    var imageObject;
     var ctx = null;
     var imageReady = false;
     window.requestAnimFrame = (function(){
@@ -19,6 +22,13 @@
     function onload() {
       canvas = document.getElementById('gameCanvas');
       ctx = canvas.getContext("2d");
+
+var imageObj = new Image();
+ 
+      imageObj.onload = function() {
+        ctx.drawImage(imageObj, 69, 50);
+      };
+     imageObj.src = 'images/bg.jpg';
       img = new Image();
       img.src = 'images/ken-shoryuken.png';
       img.onload = loaded();
@@ -32,14 +42,18 @@
       canvas.width = canvas.parentNode.clientWidth;
       canvas.height = canvas.parentNode.clientHeight;
       redraw();
-    }
+         }
     function redraw() {
-        ctx.fillStyle = '#000000';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        //ctx.fillStyle = '#000000';
+        //ctx.fillRect(0, 0, canvas.width, canvas.height);
         if (imageReady) {
            ctx.drawImage(img, frame*96, 0, 60 , 54*2,
-                          canvas.width/2 - 48, canvas.height/2 - 48, 60, 54*2);
+                          canvas.width/2 - 48, canvas.height/2 - 48, 60, 54*2);    
+           ctx.drawImage(imageObject,canvas.widght,canvas.height);
         }
+
+ 
+  
     }
     
     var frame = 0;
@@ -48,7 +62,7 @@
     var msPerFrame = 100;
     
     function update() {
-        requestAnimFrame(update);
+        requestAnimFrame(update)
     
         var delta = Date.now() - lastUpdateTime;
         if (acDelta > msPerFrame)
@@ -56,7 +70,7 @@
             acDelta = 0;
             redraw();
             frame++;
-            if (frame >= 6) frame = 0;
+            if (frame >= 6) frame--;
         } else
         {
             acDelta += delta;
@@ -111,21 +125,21 @@
 
   </script>
   </head>
--->
+------------------------------------------------------------------------------------------------------------------------------------------->
   </script>
-<body onresize='onresize()' onload='onload()' style='position: absolute; padding:0; margin:0; height: 100%; width:100%'>
-
-<canvas id="gameCanvas"></canvas>
-
-    
-    <!--<div class="stage">
+<body  onload='onload()' onresize='onresize()'>
+<div class="stage">
         <div class="ken stance"></div>
         <div class="guile stance2 flip"></div>
 
         <a class="pause"></a>
-    </div>
+</div>
+<canvas id="gameCanvas" width="500" height="500"></canvas>
+
     
-        <table class="commands">
+    
+    
+        <!--<table class="commands">
         <tr>
             <td>Punch <span class="key" id="a">a</span>
             <td>Kick <span class="key" id="z">z</span>
@@ -133,7 +147,7 @@
         <tr>
             <td>Shoryuken <span class="key" id="d">d</span>
             <td>Reverse kick <span class="key" id="e">e</span>
-            <td>Walk <span class="key" id="left">◀</span> <span class="key" id="right">►</span> <!--▲▼◀►
+            <td>Walk <span class="key" id="left">◀</span> <span class="key" id="right">►</span> ▲▼◀►
         <tr>
             <td>Hadoken <span class="key" id="s">s</span>
             <td>Tatsumaki Senpuu Kyaku <span class="key" id="q">q</span>
