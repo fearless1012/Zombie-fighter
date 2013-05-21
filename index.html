@@ -22,11 +22,20 @@
     function onload() {
       canvas = document.getElementById('gameCanvas');
       ctx = canvas.getContext("2d");
-
+      ctx1 = canvas.getContext("2d");
+       
    
       img = new Image();
       img.src = 'images/ken-shoryuken.png';
       img.onload = loaded();
+
+      var imageObj = new Image();
+ 
+      imageObj.onload = function() {
+        ctx1.drawImage(imageObj, 69, 59);
+      };
+     imageObj.src = 'images/bg.jpg';
+
       resize();
     }
     function loaded() {
@@ -39,22 +48,15 @@
       redraw();
          }
     function redraw() {
-         var imageObj = new Image();
- 
-      imageObj.onload = function() {
-        ctx.drawImage(imageObj, 69, 59);
-      };
-     imageObj.src = 'images/bg.jpg';
+         
         if (imageReady) {img = new Image();
       img.src = 'images/ken-shoryuken.png';
       img.onload = loaded();
            ctx.drawImage(img, frame*96, 0, 60 , 54*2,
                           canvas.width/2 - 48, canvas.height/2 - 48, 60, 54*2);    
            
-        }
-
- 
-  
+      
+  }
     }
     
     var frame = 0;
