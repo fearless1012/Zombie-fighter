@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+<script src="js/ocanvas.js"></script>
 
   <script type='text/javascript'>
    
@@ -16,19 +17,17 @@
                 window.oRequestAnimationFrame      ||
                 window.msRequestAnimationFrame     ||
                 function( callback ){
-                  window.setTimeout(callback, 1000 / 60);
+                  window.setTimeout(callback, 5000 / 60);
                 };
     })();
     function onload() {
       canvas = document.getElementById('gameCanvas');
       ctx = canvas.getContext("2d");
       ctx1 = canvas.getContext("2d");
-       
-   
       img = new Image();
       img.src = 'images/ken-shoryuken.png';
       img.onload = loaded();
-
+     
       var imageObj = new Image();
  
       imageObj.onload = function() {
@@ -40,7 +39,7 @@
     }
     function loaded() {
         imageReady = true;
-        setTimeout( update, 1000 / 60 );
+        setTimeout( update, 5000 / 60 );
     }
     function resize() {
       canvas.width = canvas.parentNode.clientWidth;
@@ -48,10 +47,17 @@
       redraw();
          }
     function redraw() {
-         
-        if (imageReady) {img = new Image();
+        /* var imageObj = new Image();
+ 
+      imageObj.onload = function() {
+        ctx1.drawImage(imageObj, 69, 59);
+      };
+     imageObj.src = 'images/bg.jpg';*/
+        if (imageReady) {
+      img = new Image();
       img.src = 'images/ken-shoryuken.png';
       img.onload = loaded();
+           //canvas.addChild(image);
            ctx.drawImage(img, frame*96, 0, 60 , 54*2,
                           canvas.width/2 - 48, canvas.height/2 - 48, 60, 54*2);    
            
@@ -71,9 +77,12 @@
         if (acDelta > msPerFrame)
         {
             acDelta = 0;
+           
             redraw();
             frame++;
-            if (frame >= 6) frame--;
+            
+              
+              if (frame >= 6) frame--;
         } else
         {
             acDelta += delta;
@@ -161,9 +170,8 @@
             <td>
     </table>
     -->
-<script src="js/jquery.min.js"></script>
 <script src="js/soundmanager2-jsmin.js"></script>
 <script src="js/audio.js"></script>
-<script src="js/ken.js"></script>
+<!--<script src="js/ken.js"></script>-->
 </body>
 </html>
