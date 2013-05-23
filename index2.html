@@ -1,0 +1,53 @@
+<!DOCTYPE html><html>
+<head>
+<title>Test game like</title>
+<meta name = "viewport" content = "user-scalable=no, width=device-width">
+
+<style>
+body {
+    margin:0 auto;
+}
+.sjs {
+    background-image:url("images/bg.jpg");
+    border:1px #333 solid;
+}
+</style>
+</head>
+<body>
+</body>
+<script src="spritejs/vendors/touch.js"></script>
+<script src="spritejs/sprite.js"></script>
+<script src="spritejs/lib/collision.js"></script>
+<script>
+var scene = sjs.Scene({w:1015, h:415});
+var background = scene.Layer('background', {
+    useCanvas:true,
+    autoClear:false
+});
+//var sprite = background.Sprite('simba.jpg');
+scene.loadImages(['images/ken-shoryuken.png'], function() {
+
+    // create the Sprite object;
+    var sp = scene.Sprite('images/ken-shoryuken.png');
+
+    // change the visible size of the sprite
+    //sp.size(55, 30);
+
+    // apply the latest visual changes to the sprite
+    // (draw if canvas, update attribute if DOM);
+    sp.update();
+
+    // change the offset of the image in the sprite
+    // (this works the opposite way of a CSS background)
+    //sp.offset(50, 50);
+
+    // various transformations
+    sp.move(90, 190);
+    //sp.rotate(3.14 / 4);
+    sp.scale(2);
+    sp.setOpacity(1);
+
+    sp.update();
+});
+</script>
+</html>
