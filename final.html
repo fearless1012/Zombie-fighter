@@ -29,8 +29,10 @@ body {
 
 window.onload = function() {
 
-
-var scene = sjs.Scene({w:1015, h:415});
+ var game_width = 1015;
+    var game_height = 415;
+    var scene = sjs.Scene({w:game_width, h:game_height});
+//var scene = sjs.Scene({w:1015, h:415});
 var background = scene.Layer('background', {
     useCanvas:true,
     autoClear:false
@@ -52,14 +54,18 @@ var background = scene.Layer('background', {
     //elements.add(bottom);
 
     var player = scene.Sprite('images/ken-shoryuken.png', back);
-    player.position(80, 220);
+    player.position(80, 210);
     //player.rotate(3.14);
     player.size(75, 150);
     player.scale(3);
 
     var input  = scene.Input();
 
-    var cycle = scene.Cycle([[3, 3, 5],
+  
+    var virtual_player_x = player.x;
+    var player_xv = 2.5;
+    var score_count = 0;
+  var cycle = scene.Cycle([[3, 3, 5],
                                [63, 4, 4],
                                [123, 5, 3],
                                [203, 6, 2],
@@ -67,70 +73,44 @@ var background = scene.Layer('background', {
                                [343, 5, 4],
                                [423, 4, 5]
                                ]);
-    cycle.addSprite(player);
+            cycle.addSprite(player);
 
-    //var virtual_player_x = player.x;
-    //var player_xv = 2.5;
-    var score_count = 0;
+             player.update();
+         
+       var xv = 0, yv = 0;
+var plateforms = [];
+    var mplateforms = [];
+// var bottom = scene.Sprite('');
+  //  bottom.setH(game_height);
+   // bottom.setW(game_width);
 
+   // plateforms.push(bottom);
+
+    
     function paint() {
-
-        /*player.yv += gravity;
-        player.applyXVelocity();
-        if(player.collidesWithArray(elements)) {
-            ticker.pause();
-            alert("Game over!");
-            return;
-        }
-
-        player.applyYVelocity();
-        if(player.collidesWithArray(elements)) {
-            player.reverseYVelocity();
-            player.yv = 0;
-            if(input.mousedown || input.keydown) {
-                player.yv = -10;
-            }
-        } else {
-            if(input.mousedown || input.keydown) {
-                player.yv -= 0.2;
-            }
-        }
-*/
-        player.update();
-
-     /*   var el;
-        var need_to_create_plateform = true;
-        while(el = elements.iterate()) {
-            el.xv = -player_xv;
-            el.applyVelocity();
-            el.update();
-
-            if(el.isPointIn(game_width, game_height-20)) {
-                need_to_create_plateform = false;
-            }
-
-            if(el.x + el.w < 0) {
-                elements.remove(el)
-            }
-        }
-
-        if(need_to_create_plateform && Math.random() < 0.1) {
-            var height = 32 + (Math.random() * 96);
-            var width = 64 + (Math.random() * 128);
-            var bottom = scene.Sprite('.', {layer:back, w:width, h:height, x:game_width, y:game_height-height});
-            bottom.update();
-            elements.add(bottom);
-        }
-*/
-        cycle.next(ticker.lastTicksElapsed);
-
-        //player_xv += 0.002;
-        score_count += 0.08;
-        score.dom.innerHTML = 'Score '+Math.round(score_count);
-
+         
+      
+        if(input.keyboard.up || input.keyboard.space) {
+   
+//console.log(ticker.currentTick);
+      
         
-    };
+       var c = ticker.currentTick;
+       player.update();
+        if(input.arrows())
+           {
+           console.log(c);
+          cycle.next(1);
+          }
+        else
+            cycle.reset();
 
+}
+       
+    };
+        
+
+    
     var ticker = scene.Ticker(50, paint);
     ticker.run();
 
