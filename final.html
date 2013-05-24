@@ -54,10 +54,10 @@ var background = scene.Layer('background', {
     //elements.add(bottom);
 
     var player = scene.Sprite('images/ken-shoryuken.png', back);
-    player.position(80, 210);
+    player.position(80,200);
     //player.rotate(3.14);
-    player.size(75, 150);
-    player.scale(3);
+    player.size(75, 220);
+    player.scale(2);
 
     var input  = scene.Input();
 
@@ -65,13 +65,13 @@ var background = scene.Layer('background', {
     var virtual_player_x = player.x;
     var player_xv = 2.5;
     var score_count = 0;
-  var cycle = scene.Cycle([[3, 3, 5],
-                               [63, 4, 4],
-                               [123, 5, 3],
-                               [203, 6, 2],
-                               [273, 7, 3],
-                               [343, 5, 4],
-                               [423, 4, 5]
+  var cycle = scene.Cycle([[3, 3, 4],
+                               [63, 3, 3],
+                               [123, 80, 2],
+                               [203, 120, 5],
+                               [273, 80, 2],
+                               [343, 3, 3],
+                               [423, 3, 4]
                                ]);
             cycle.addSprite(player);
 
@@ -97,21 +97,24 @@ var plateforms = [];
         
        var c = ticker.currentTick;
        player.update();
-        if(input.arrows())
-           {
-           console.log(c);
+       
+           
+          
+          
           cycle.next(1);
+console.log(c);
+
           }
         else
             cycle.reset();
 
-}
+
        
     };
         
 
     
-    var ticker = scene.Ticker(50, paint);
+    var ticker = scene.Ticker(30, paint);
     ticker.run();
 
     });
