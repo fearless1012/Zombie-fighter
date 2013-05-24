@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!-- saved from url=(0072)file:///home/neerja/Desktop/streetfighter/street-fighter-css/sample.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Test game like</title>
+</head><body><p>Sprite.js, game test. <a href="https://github.com/batiste/sprite.js">Github project page</a></p>
+<meta name="viewport" content="user-scalable=no, width=device-width">
+<style>
+body {
+    margin:0 auto;
+}
+.sjs {
+    background-image:url("images/bg.jpg");
+    border:1px #333 solid;
+}
+#score {
+    font-size:2em;
+    font-family:sans-serif;
+    color:#999;
+}
+</style>
+
+
+
+
+
+<script src="./Test_game_files/touch.js"></script>
+<script src="./Test_game_files/sprite.js"></script>
+<script src="./Test_game_files/collision.js"></script>
+<script>
+
+window.onload = function() {
+
+ var game_width = 1015;
+    var game_height = 415;
+    var scene = sjs.Scene({w:game_width, h:game_height});
+//var scene = sjs.Scene({w:1015, h:415});
+var background = scene.Layer('background', {
+    useCanvas:true,
+    autoClear:false
+});
+    var gravity = 0;
+
+    scene.loadImages(['images/roy/run.png','images/opponent/dracula/one.png'], function() {
+
+    var back = scene.Layer('backround');
+    var front = scene.Layer('front')
+    var score = scene.Sprite(false, front);
+    score.size(200, 100);
+    score.position(20, 20);
+    score.update();
+    score.dom.id = 'score';
+
+    
+    var elements = sjs.SpriteList();
+    //elements.add(bottom);
+
+    var player = scene.Sprite('images/roy/run.png', back);
+    player.position(80,100);
+    //player.rotate(3.14);
+    player.size(68, 390);
+    player.scale(3);
+    
+
+     var oppo = scene.Sprite('images/opponent/dracula/one.png', back);
+    oppo.position(800,50);
+    //oppo.rotate(3.14);
+    oppo.size(100, 300);
+    oppo.scale(2);
+
+
+    var input  = scene.Input();
+  var cycle = scene.Cycle([[3, 80, 5],
+                               [70, 80, 5],
+                               [140, 80, 5],
+                               [200, 80, 5],
+                               [270, 80, 5],
+                               //[370, 80, 5],
+                               ]);
+            cycle.addSprite(player);
+
+             player.update();
+         var cycleoppo = scene.Cycle([[23, 10, 8],
+                               [130, 15, 7],
+                               [228, 25, 6],
+                               [335, 35, 5],
+                               [470, 35, 4],
+                               [470, 35, 3],
+                               [610, 35, 10],
+                               //[730, 10, 5],
+                               //[780, 20, 5],
+                               //[860, 20, 5],
+                              // [920,20, 5],
+                               ]);
+            cycleoppo.addSprite(oppo);
+             cycleoppo.next(1);
+             oppo.update();      
+
+    
+    function paint() {
+
+	if(input.keyboard.right) {	
+	   
+            player.update();
+            player.move(20,0);
+              oppo.move(-1,0)
+              cycleoppo.next(2);
+	    cycle.next(1);
+            oppo.update();	}
+        else
+            cycle.reset();
+      
+    
+
+
+       
+    };
+        
+
+    
+    var ticker = scene.Ticker(50, paint);
+    ticker.run();
+
+    });
+
+};
+</script>
+
+<div style="overflow: hidden; image-rendering: -webkit-optimize-contrast; position: relative; width: 1015px; height: 415px;" class="sjs" id="sjs0"><div id="sjs0-default" style="z-index: 2; height: 415px; width: 1015px; position: absolute; top: 0px; left: 0px;"></div><canvas id="sjs0-background" style="z-index: 3; position: absolute; top: 0px; left: 0px;" height="415" width="1015"></canvas><div id="sjs0-backround" style="z-index: 4; height: 415px; width: 1015px; position: absolute; top: 0px; left: 0px;"><div style="position: absolute; background-image: url(file:///home/neerja/Desktop/streetfighter/street-fighter-css/images/roy/run.png); left: 1420px; top: 100px; width: 68px; height: 390px; -webkit-transform: scale(3, 3); background-position: -140px -80px;"></div><div style="position: absolute; background-image: url(file:///home/neerja/Desktop/streetfighter/street-fighter-css/images/opponent/dracula/one.png); left: 732px; top: 50px; width: 100px; height: 300px; -webkit-transform: scale(2, 2); background-position: -23px -10px;"></div></div><div id="sjs0-front" style="z-index: 5; height: 415px; width: 1015px; position: absolute; top: 0px; left: 0px;"><div style="position: absolute; left: 20px; top: 20px; width: 200px; height: 100px;" id="score"></div></div><div style="top: 0px; left: 0px; width: 1015px; height: 415px; color: rgb(255, 255, 255); z-index: 100; position: absolute; background-color: rgb(0, 0, 0); opacity: 0.7; text-align: center; padding-top: 175.5px;"><h1>Paused</h1><p>Click or press any key to resume.</p></div></div></body></html>
