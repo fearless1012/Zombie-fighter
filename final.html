@@ -8,7 +8,7 @@ body {
     margin:0 auto;
 }
 .sjs {
-    background-image:url("images/bg.jpg");
+    background-image:url("images/bg2.jpg");
     border:1px #333 solid;
 }
 #score {
@@ -29,8 +29,8 @@ body {
 
 window.onload = function() {
 
- var game_width = 1015;
-    var game_height = 415;
+ var game_width = 1024;
+    var game_height = 786;
     var scene = sjs.Scene({w:game_width, h:game_height});
 //var scene = sjs.Scene({w:1015, h:415});
 var background = scene.Layer('background', {
@@ -39,7 +39,7 @@ var background = scene.Layer('background', {
 });
     var gravity = 0;
 
-    scene.loadImages(['images/ken-shoryuken.png'], function() {
+    scene.loadImages(['images/roy/001.png' , 'images/opponent/dracula/1.png'], function() {
 
     var back = scene.Layer('backround');
     var front = scene.Layer('front')
@@ -53,12 +53,19 @@ var background = scene.Layer('background', {
     var elements = sjs.SpriteList();
     //elements.add(bottom);
 
-    var player = scene.Sprite('images/ken-shoryuken.png', back);
-    player.position(80,200);
+    var player = scene.Sprite('images/roy/001.png', back);
+    player.position(180,360);
     //player.rotate(3.14);
-    player.size(75, 220);
-    player.scale(2);
+    player.size(60, 480);
+    player.scale(3);
 
+   var oppo = scene.Sprite('images/opponent/dracula/1.png', back);
+    oppo.position(800,430);
+    //player.rotate(3.14);
+    oppo.size(75, 220);
+    oppo.scale(2);
+
+oppo.update();
     var input  = scene.Input();
 
   
