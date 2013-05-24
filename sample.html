@@ -1,0 +1,124 @@
+<!DOCTYPE html><html>
+<head>
+<title>Test game like</title>
+<p>Sprite.js, game test. <a href="https://github.com/batiste/sprite.js">Github project page</a></p>
+<meta name = "viewport" content = "user-scalable=no, width=device-width">
+<style>
+body {
+    margin:0 auto;
+}
+.sjs {
+    background-image:url("images/bg.jpg");
+    border:1px #333 solid;
+}
+#score {
+    font-size:2em;
+    font-family:sans-serif;
+    color:#999;
+}
+</style>
+</head>
+<body>
+
+
+</body>
+<script src="spritejs/vendors/touch.js"></script>
+<script src="spritejs/sprite.js"></script>
+<script src="spritejs/lib/collision.js"></script>
+<script>
+
+window.onload = function() {
+
+ var game_width = 1015;
+    var game_height = 415;
+    var scene = sjs.Scene({w:game_width, h:game_height});
+//var scene = sjs.Scene({w:1015, h:415});
+var background = scene.Layer('background', {
+    useCanvas:true,
+    autoClear:false
+});
+    var gravity = 0;
+
+    scene.loadImages(['images/ken-shoryuken.png'], function() {
+
+    var back = scene.Layer('backround');
+    var front = scene.Layer('front')
+    var score = scene.Sprite(false, front);
+    score.size(200, 100);
+    score.position(20, 20);
+    score.update();
+    score.dom.id = 'score';
+
+    
+    var elements = sjs.SpriteList();
+    //elements.add(bottom);
+
+    var player = scene.Sprite('images/ken-shoryuken.png', back);
+    player.position(80,200);
+    //player.rotate(3.14);
+    player.size(75, 220);
+    player.scale(2);
+
+    var input  = scene.Input();
+
+  
+    var virtual_player_x = player.x;
+    var player_xv = 2.5;
+    var score_count = 0;
+  var cycle = scene.Cycle([[3, 3, 4],
+                               [63, 3, 3],
+                               [123, 80, 2],
+                               [203, 120, 5],
+                               [273, 80, 2],
+                               [343, 3, 3],
+                               [423, 3, 4]
+                               ]);
+            cycle.addSprite(player);
+
+             player.update();
+         
+       var xv = 0, yv = 0;
+var plateforms = [];
+    var mplateforms = [];
+// var bottom = scene.Sprite('');
+  //  bottom.setH(game_height);
+   // bottom.setW(game_width);
+
+   // plateforms.push(bottom);
+
+    
+    function paint() {
+         
+      
+        if(input.keyboard.up || input.keyboard.space) {
+   
+//console.log(ticker.currentTick);
+      
+        
+       var c = ticker.currentTick;
+       player.update();
+       
+           
+          
+          
+          cycle.next(1);
+console.log(c);
+
+          }
+        else
+            cycle.reset();
+
+
+       
+    };
+        
+
+    
+    var ticker = scene.Ticker(30, paint);
+    ticker.run();
+
+    });
+
+};
+</script>
+</html>
